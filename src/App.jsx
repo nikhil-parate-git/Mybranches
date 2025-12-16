@@ -25,7 +25,11 @@ const AppContent = () => {
     <Step1 next={next} />,
     <Step2 next={next} back={back} />,
     <Step3 next={next} back={back} />,
-    <Step4 back={back} setStep={setStep} />,
+    <Step4
+      back={back}
+      setStep={setStep}
+      setCurrentView={setCurrentView} // 🔥 REQUIRED FIX
+    />,
   ];
 
   return (

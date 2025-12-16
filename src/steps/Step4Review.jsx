@@ -5,7 +5,7 @@ import {
   selectedUserState,
 } from "../recoil/atoms/FormAtom";
 
-const Step4Review = ({ back, setStep }) => {
+const Step4Review = ({ back, setStep, setCurrentView }) => {
   const [formData, setFormData] = useRecoilState(currentFormState);
   const [users, setUsers] = useRecoilState(usersState);
   const [selectedUser, setSelectedUser] = useRecoilState(selectedUserState);
@@ -19,13 +19,18 @@ const Step4Review = ({ back, setStep }) => {
       setUsers([...users, formData]);
     }
 
+    // RESET FORM
     setFormData({
       personal: { name: "", email: "" },
       address: { city: "", pincode: "" },
       document: null,
     });
+
     setSelectedUser(null);
     setStep(0);
+
+    // 🔥🔥 MOST IMPORTANT LINE 🔥🔥
+    setCurrentView("users");
   };
 
   return (
@@ -33,32 +38,17 @@ const Step4Review = ({ back, setStep }) => {
       <h3 className="text-indigo-600 font-semibold text-lg">Review Details</h3>
 
       <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg border">
-        <h4 className="font-semibold text-sm mb-2 text-indigo-600">Personal</h4>
         <p>Name: {formData.personal.name}</p>
         <p>Email: {formData.personal.email}</p>
       </div>
 
       <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg border">
-        <h4 className="font-semibold text-sm mb-2 text-indigo-600">Address</h4>
         <p>City: {formData.address.city}</p>
         <p>Pincode: {formData.address.pincode}</p>
       </div>
 
-      {formData.document && typeof formData.document === "object" && (
-        <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg border">
-          <h4 className="font-semibold text-sm mb-2 text-indigo-600">
-            Document
-          </h4>
-          <img
-            src={URL.createObjectURL(formData.document)}
-            alt="Uploaded"
-            className="w-full h-40 object-contain"
-          />
-        </div>
-      )}
-
       <div className="flex gap-4 pt-2">
-        <button onClick={back} className="btn-secondary text-black">
+        <button onClick={back} className="btn-secondary">
           Back
         </button>
         <button onClick={handleSubmit} className="btn-primary w-full">
