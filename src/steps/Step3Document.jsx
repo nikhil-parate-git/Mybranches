@@ -1,8 +1,8 @@
-import { useContext } from "react";
-import { FormContext } from "../context/FormContext";
+import { useRecoilState } from "recoil";
+import { currentFormState } from "../recoil/atoms/FormAtom";
 
 const Step3Document = ({ next, back }) => {
-  const { formData, setFormData } = useContext(FormContext);
+  const [formData, setFormData] = useRecoilState(currentFormState);
 
   return (
     <div className="space-y-6">
@@ -22,8 +22,12 @@ const Step3Document = ({ next, back }) => {
       </div>
 
       <div className="flex gap-4">
-        <button onClick={back} className="btn-secondary">Back</button>
-        <button onClick={next} className="btn-primary">Next</button>
+        <button onClick={back} className="btn-secondary">
+          Back
+        </button>
+        <button onClick={next} className="btn-primary">
+          Next
+        </button>
       </div>
     </div>
   );

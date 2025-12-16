@@ -1,45 +1,76 @@
-import { useContext } from "react";
-import { ThemeContext } from "../context/ThemeContext";
+import { useRecoilValue } from "recoil";
+import { usersState } from "../recoil/atoms/FormAtom";
+import { themeState } from "../recoil/atoms/ThemeAtom";
 import ThemeToggle from "./ThemeToggle";
 
-const Sidebar = ({ currentView, setCurrentView, children }) => {
-  const { theme } = useContext(ThemeContext);
+const Sidebar = ({ setCurrentView, setStep }) => {
+  const users = useRecoilValue(usersState);
+  const theme = useRecoilValue(themeState);
+
+  const handleWizardClick = () => {
+    setCurrentView("wizard");
+    setStep(0);
+  };
+
+  const handleUsersClick = () => {
+    setCurrentView("users");
+  };
 
   return (
-    <div className={`flex min-h-screen ${theme === "dark" ? "bg-gray-900 text-white" : "bg-gray-100 text-gray-900"}`}>
-      
-      {/* Sidebar Links */}
-      <div className="w-64 p-6 border-r border-gray-300 dark:border-gray-700 flex flex-col">
+    <div
+      className={`w-64 p-6 border-r flex flex-col min-h-screen justify-between
+        ${
+          theme === "dark"
+            ? "bg-gray-900 border-gray-700 text-white"
+            : "bg-white border-gray-300 text-black"
+        }`}
+    >
+      {/* TOP */}
+      <div>
         <h1 className="text-xl font-bold mb-6">My App</h1>
 
+        {/* Registration Wizard */}
         <button
-          onClick={() => setCurrentView("wizard")}
-          className={`mb-2 px-4 py-2 rounded hover:bg-indigo-600 hover:text-white transition ${
-            currentView === "wizard" ? "bg-indigo-600 text-white" : ""
-          }`}
+          onClick={handleWizardClick}
+          className={`mb-2 w-full px-4 py-2 rounded transition
+            ${
+              theme === "dark"
+                ? "bg-gray-700 hover:bg-indigo-600"
+                : "bg-gray-200 hover:bg-indigo-600 hover:text-white"
+            }`}
         >
           Registration Wizard
         </button>
 
+        {/* Users */}
         <button
-          onClick={() => setCurrentView("todo")}
-          className={`mb-2 px-4 py-2 rounded hover:bg-indigo-600 hover:text-white transition ${
-            currentView === "todo" ? "bg-indigo-600 text-white" : ""
-          }`}
+          onClick={handleUsersClick}
+          className={`mb-2 w-full px-4 py-2 rounded transition
+            ${
+              theme === "dark"
+                ? "bg-gray-700 hover:bg-indigo-600"
+                : "bg-gray-200 hover:bg-indigo-600 hover:text-white"
+            }`}
         >
-          Todo App
+          Users ({users.length})
         </button>
 
-        <div className="mt-auto">
-          <ThemeToggle />
-        </div>
+        {/* Product Management */}
+        <button
+          onClick={() => setCurrentView("products")}
+          className={`w-full px-4 py-2 rounded transition
+            ${
+              theme === "dark"
+                ? "bg-gray-700 hover:bg-indigo-600"
+                : "bg-gray-200 hover:bg-indigo-600 hover:text-white"
+            }`}
+        >
+          Product Management
+        </button>
       </div>
 
-      {/* Main Content */}
-      <div className="flex-1 p-6">
-        {/* Render the actual children passed from App.jsx */}
-        {children}
-      </div>
+      {/* BOTTOM */}
+      <ThemeToggle />
     </div>
   );
 };

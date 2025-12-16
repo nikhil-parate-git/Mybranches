@@ -1,6 +1,6 @@
 const Stepper = ({ step }) => {
   const steps = ["Personal", "Address", "Document", "Review"];
-//Ye component multi-step form ka progress dikhata hai
+
   return (
     <div className="mb-8">
       <div className="flex justify-between">
@@ -8,11 +8,19 @@ const Stepper = ({ step }) => {
           <div key={index} className="flex flex-col items-center w-full">
             <div
               className={`w-9 h-9 flex items-center justify-center rounded-full text-sm font-bold
-              ${index <= step ? "bg-indigo-600 text-white" : "bg-gray-300 text-gray-600"}`}
+              ${
+                index <= step
+                  ? "bg-indigo-600 text-white"
+                  : "bg-gray-300 text-gray-600"
+              }`}
             >
               {index + 1}
             </div>
-            <p className={`text-xs mt-2 ${index <= step ? "text-indigo-600" : "text-gray-400"}`}>
+            <p
+              className={`text-xs mt-2 ${
+                index <= step ? "text-indigo-600" : "text-gray-400"
+              }`}
+            >
               {label}
             </p>
           </div>
