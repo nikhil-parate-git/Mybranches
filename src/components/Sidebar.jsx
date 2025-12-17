@@ -1,20 +1,27 @@
 import { useRecoilValue } from "recoil";
+import { NavLink, useNavigate } from "react-router-dom";
+
 import { usersState } from "../recoil/atoms/FormAtom";
 import { themeState } from "../recoil/atoms/ThemeAtom";
 import ThemeToggle from "./ThemeToggle";
 
-const Sidebar = ({ setCurrentView, setStep }) => {
+const Sidebar = () => {
   const users = useRecoilValue(usersState);
   const theme = useRecoilValue(themeState);
+  const navigate = useNavigate();
 
-  const handleWizardClick = () => {
-    setCurrentView("wizard");
-    setStep(0);
+  const goToWizard = () => {
+    navigate("/wizard");
   };
 
-  const handleUsersClick = () => {
-    setCurrentView("users");
-  };
+  const baseClass =
+    "block w-full px-4 py-2 mb-2 rounded text-center font-medium transition";
+
+  const darkBg = "bg-gray-700 text-white hover:bg-emerald-600";
+  const lightBg =
+    "bg-white text-gray-800 hover:bg-emerald-500 hover:text-white shadow-sm";
+  const activeDark = "bg-emerald-600 text-white";
+  const activeLight = "bg-emerald-500 text-white";
 
   return (
     <div
@@ -22,54 +29,57 @@ const Sidebar = ({ setCurrentView, setStep }) => {
         ${
           theme === "dark"
             ? "bg-gray-900 border-gray-700 text-white"
-            : "bg-white border-gray-300 text-black"
+            : "bg-gray-50 border-gray-200 text-gray-800"
         }`}
     >
-      {/* TOP */}
       <div>
-        <h1 className="text-xl font-bold mb-6">My App</h1>
+        <h1 className="text-2xl font-bold mb-6">My Task</h1>
 
         {/* Registration Wizard */}
         <button
-          onClick={handleWizardClick}
-          className={`mb-2 w-full px-4 py-2 rounded transition
-            ${
-              theme === "dark"
-                ? "bg-gray-700 hover:bg-indigo-600"
-                : "bg-gray-200 hover:bg-indigo-600 hover:text-white"
-            }`}
+          onClick={goToWizard}
+          className={`${baseClass} ${theme === "dark" ? darkBg : lightBg}`}
         >
           Registration Wizard
         </button>
 
         {/* Users */}
-        <button
-          onClick={handleUsersClick}
-          className={`mb-2 w-full px-4 py-2 rounded transition
-            ${
-              theme === "dark"
-                ? "bg-gray-700 hover:bg-indigo-600"
-                : "bg-gray-200 hover:bg-indigo-600 hover:text-white"
-            }`}
+        <NavLink
+          to="/users"
+          className={({ isActive }) =>
+            `${baseClass} ${
+              isActive
+                ? theme === "dark"
+                  ? activeDark
+                  : activeLight
+                : theme === "dark"
+                ? darkBg
+                : lightBg
+            }`
+          }
         >
           Users ({users.length})
-        </button>
+        </NavLink>
 
         {/* Product Management */}
-        <button
-          onClick={() => setCurrentView("products")}
-          className={`w-full px-4 py-2 rounded transition
-            ${
-              theme === "dark"
-                ? "bg-gray-700 hover:bg-indigo-600"
-                : "bg-gray-200 hover:bg-indigo-600 hover:text-white"
-            }`}
+        <NavLink
+          to="/products"
+          className={({ isActive }) =>
+            `${baseClass} ${
+              isActive
+                ? theme === "dark"
+                  ? activeDark
+                  : activeLight
+                : theme === "dark"
+                ? darkBg
+                : lightBg
+            }`
+          }
         >
           Product Management
-        </button>
+        </NavLink>
       </div>
 
-      {/* BOTTOM */}
       <ThemeToggle />
     </div>
   );

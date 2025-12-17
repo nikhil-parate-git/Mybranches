@@ -14,11 +14,17 @@ export const filteredProductsState = selector({
     const category = get(categoryState).toLowerCase();
     const price = get(priceState);
 
-    return products.filter(
-      (p) =>
-        p.name.toLowerCase().includes(search) &&
-        (category === "all" || p.category.toLowerCase() === category) &&
-        Number(p.price) <= price
-    );
+    return products.filter((product) => {
+      const matchName = product.name
+        .toLowerCase()
+        .includes(search); 
+
+      const matchCategory =
+        category === "all" || product.category === category;
+
+      const matchPrice = Number(product.price) <= Number(price);
+
+      return matchName && matchCategory && matchPrice;
+    });
   },
 });

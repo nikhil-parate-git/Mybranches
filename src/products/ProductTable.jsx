@@ -3,11 +3,13 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { filteredProductsState } from "../recoil/selectors/productSelectors";
 import { productsState, pageState } from "../recoil/atoms/productAtoms";
 import { FiEdit, FiTrash2 } from "react-icons/fi";
+import { themeState } from "../recoil/atoms/ThemeAtom";
 
 const ProductTable = ({ setEditProduct }) => {
   const filteredProducts = useRecoilValue(filteredProductsState);
   const [products, setProducts] = useRecoilState(productsState);
   const [page, setPage] = useRecoilState(pageState);
+  const theme = useRecoilValue(themeState);
 
   const perPage = 5;
   const totalPages = Math.ceil(filteredProducts.length / perPage);
@@ -20,36 +22,41 @@ const ProductTable = ({ setEditProduct }) => {
   const deleteProduct = (id) =>
     setProducts(products.filter((p) => p.id !== id));
 
+  const textColor = theme === "dark" ? "text-gray-100" : "text-gray-900";
+  const headerBg =
+    theme === "dark"
+      ? "bg-gray-800 text-gray-300"
+      : "bg-gray-100 text-gray-500";
+  const rowHover = theme === "dark" ? "hover:bg-gray-700" : "hover:bg-gray-50";
+  const borderColor = theme === "dark" ? "border-gray-600" : "border-gray-200";
+
   return (
     <>
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto rounded-lg shadow-sm">
         <table className="w-full text-left border-collapse">
-          <thead>
-            <tr className="border-b text-gray-500 dark:text-gray-300">
-              <th className="py-2">Image</th>
-              <th>Name</th>
-              <th>Category</th>
-              <th>Price</th>
-              <th>Action</th>
+          <thead className={`${headerBg}`}>
+            <tr>
+              <th className={`py-2 px-4 border-b ${borderColor}`}>Image</th>
+              <th className={`py-2 px-4 border-b ${borderColor}`}>Name</th>
+              <th className={`py-2 px-4 border-b ${borderColor}`}>Category</th>
+              <th className={`py-2 px-4 border-b ${borderColor}`}>Price</th>
+              <th className={`py-2 px-4 border-b ${borderColor}`}>Action</th>
             </tr>
           </thead>
           <tbody>
             {paginated.map((p) => (
-              <tr
-                key={p.id}
-                className="border-b hover:bg-gray-50 dark:hover:bg-gray-700"
-              >
-                <td className="py-2">
+              <tr key={p.id} className={`border-b ${borderColor} ${rowHover}`}>
+                <td className="py-2 px-4">
                   <img
                     src={p.image}
                     alt={p.name}
                     className="w-12 h-12 object-cover rounded"
                   />
                 </td>
-                <td className="text-gray-900 dark:text-white">{p.name}</td>
-                <td className="text-gray-900 dark:text-white">{p.category}</td>
-                <td className="text-gray-900 dark:text-white">₹{p.price}</td>
-                <td className="space-x-2 flex items-center gap-3">
+                <td className={`${textColor} py-2 px-4`}>{p.name}</td>
+                <td className={`${textColor} py-2 px-4`}>{p.category}</td>
+                <td className={`${textColor} py-2 px-4`}>₹{p.price}</td>
+                <td className="py-2 px-4 flex items-center gap-3">
                   <button
                     className="text-indigo-600 mt-4 dark:text-indigo-400 hover:text-indigo-800"
                     onClick={() => setEditProduct(p)}
@@ -73,17 +80,17 @@ const ProductTable = ({ setEditProduct }) => {
         <button
           disabled={page === 1}
           onClick={() => setPage(page - 1)}
-          className="px-3 py-1 border rounded  disabled:opacity-50 dark:border-gray-600 dark:text-white"
+          className={`px-3 py-1 border rounded disabled:opacity-50 ${borderColor} ${textColor}`}
         >
           Prev
         </button>
-        <span className="text-sm text-gray-500 dark:text-gray-300">
+        <span className={`${textColor} text-sm`}>
           Page {page} of {totalPages}
         </span>
         <button
           disabled={page === totalPages}
           onClick={() => setPage(page + 1)}
-          className="px-3 py-1 border rounded disabled:opacity-50 dark:border-gray-600 dark:text-white"
+          className={`px-3 py-1 border rounded disabled:opacity-50 ${borderColor} ${textColor}`}
         >
           Next
         </button>
