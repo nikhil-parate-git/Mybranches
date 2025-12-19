@@ -77,7 +77,7 @@ const Step3Document = ({ next, back }) => {
         <button
           type="button"
           onClick={back}
-          className={`w-full rounded-md border px-4 py-2 text-sm font-medium ${btnBackText} ${btnBackHover} transition-colors`}
+          className={`w-full rounded-md cursor-pointer active:scale-90 border px-4 py-2 text-sm font-medium ${btnBackText} ${btnBackHover} transition-colors`}
         >
           Back
         </button>
@@ -85,7 +85,7 @@ const Step3Document = ({ next, back }) => {
         <button
           type="button"
           onClick={handleNext}
-          className="w-full rounded-md bg-emerald-600 px-4 py-2 text-sm font-medium text-stone-50 hover:bg-emerald-700 transition-colors"
+          className="w-full rounded-md cursor-pointer active:scale-90 bg-emerald-600 px-4 py-2 text-sm font-medium text-stone-50 hover:bg-emerald-700 transition-colors"
         >
           Next
         </button>

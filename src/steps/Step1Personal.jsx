@@ -76,7 +76,7 @@ const Step1Personal = ({ next }) => {
           <div className="pt-2">
             <button
               type="submit"
-              className="w-full rounded-md bg-emerald-600 px-4 py-2 text-sm font-medium text-white
+              className="w-full cursor-pointer active:scale-90 rounded-md bg-emerald-600 px-4 py-2 text-sm font-medium text-white
                          hover:bg-emerald-700 transition-colors"
             >
               Next

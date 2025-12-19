@@ -79,7 +79,7 @@ const Step2Address = ({ next, back }) => {
             <button
               type="button"
               onClick={back}
-              className={`w-full rounded-md border px-4 py-2 text-sm font-medium
+              className={`w-full rounded-md border cursor-pointer active:scale-90 px-4 py-2 text-sm font-medium
                          ${backBtnText} ${backBtnHover} transition-colors`}
             >
               Back
@@ -87,7 +87,7 @@ const Step2Address = ({ next, back }) => {
 
             <button
               type="submit"
-              className="w-full rounded-md bg-emerald-600 px-4 py-2 text-sm font-medium text-stone-50
+              className="w-full rounded-md cursor-pointer active:scale-90 bg-emerald-600 px-4 py-2 text-sm font-medium text-stone-50
                          hover:bg-emerald-700 transition-colors"
             >
               Next

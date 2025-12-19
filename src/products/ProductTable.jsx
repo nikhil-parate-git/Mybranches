@@ -58,13 +58,13 @@ const ProductTable = ({ setEditProduct }) => {
                 <td className={`${textColor} py-2 px-4`}>₹{p.price}</td>
                 <td className="py-2 px-4 flex items-center gap-3">
                   <button
-                    className="text-indigo-600 mt-4 dark:text-indigo-400 hover:text-indigo-800"
+                    className="text-indigo-600 cursor-pointer active:scale-90 mt-4 dark:text-indigo-400 hover:text-indigo-800"
                     onClick={() => setEditProduct(p)}
                   >
                     <FiEdit size={18} />
                   </button>
                   <button
-                    className="text-red-500 mt-4 dark:text-red-400 hover:text-red-700"
+                    className="text-red-500 mt-4 cursor-pointer active:scale-90 dark:text-red-400 hover:text-red-700"
                     onClick={() => deleteProduct(p.id)}
                   >
                     <FiTrash2 size={18} />
@@ -80,17 +80,17 @@ const ProductTable = ({ setEditProduct }) => {
         <button
           disabled={page === 1}
           onClick={() => setPage(page - 1)}
-          className={`px-3 py-1 border rounded disabled:opacity-50 ${borderColor} ${textColor}`}
+          className={`px-3 py-1 border rounded cursor-pointer active:scale-90 disabled:opacity-50 ${borderColor} ${textColor}`}
         >
           Prev
         </button>
-        <span className={`${textColor} text-sm`}>
+        <span className={`${textColor} text-sm `}>
           Page {page} of {totalPages}
         </span>
         <button
           disabled={page === totalPages}
           onClick={() => setPage(page + 1)}
-          className={`px-3 py-1 border rounded disabled:opacity-50 ${borderColor} ${textColor}`}
+          className={`px-3 cursor-pointer active:scale-90 py-1 border rounded disabled:opacity-50 ${borderColor} ${textColor}`}
         >
           Next
         </button>

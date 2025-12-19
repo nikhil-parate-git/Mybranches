@@ -11,7 +11,7 @@ const ThemeToggle = () => {
   return (
     <button
       onClick={toggleTheme}
-      className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition"
+      className="px-4 py-2 cursor-pointer active:scale-90 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition"
     >
       {theme === "light" ? "Dark Mode" : "Light Mode"}
     </button>

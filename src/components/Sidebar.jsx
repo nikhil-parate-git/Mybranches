@@ -38,7 +38,7 @@ const Sidebar = () => {
         {/* Registration Wizard */}
         <button
           onClick={goToWizard}
-          className={`${baseClass} ${theme === "dark" ? darkBg : lightBg}`}
+          className={`${baseClass} ${theme === "dark" ? darkBg : lightBg} cursor-pointer active:scale-90`}
         >
           Registration Wizard
         </button>
@@ -55,7 +55,7 @@ const Sidebar = () => {
                 : theme === "dark"
                 ? darkBg
                 : lightBg
-            }`
+            } cursor-pointer active:scale-90`
           }
         >
           Users ({users.length})
@@ -73,7 +73,7 @@ const Sidebar = () => {
                 : theme === "dark"
                 ? darkBg
                 : lightBg
-            }`
+            } cursor-pointer active:scale-90`
           }
         >
           Product Management
